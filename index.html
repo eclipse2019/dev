@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141768960-1"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-141768960-1');
+  </script>
+
+  <!-- Analytics goes first, now goes adsense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-3475924351339219",
+        enable_page_level_ads: true
+      });
+  </script>
+
+
+
+  <!-- Facebook property identifiers -->
+  <meta property="fb:app_id"          content="334689857202881" />
+  <meta property="og:image" content="https://eclipse2019.github.io/images/fb_splash.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://eclipse2019.github.io" />
+  <meta property="og:title" content="2019 Eclipse Visibilidad" />
+  <meta property="og:description" content="Clasifica el mapa según la visibilidad del sol durante el eclipse." />
+
+  <!-- Map set up -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="./resources/ol.css">
+  <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+  <link rel="stylesheet" href="./resources/ol3-layerswitcher.css">
+  <link rel="stylesheet" href="./resources/qgis2web.css">
+
+
+  <style>
+        .search-layer {
+          top: 100px;
+          left: .5em;
+        }
+        .ol-touch .search-layer {
+          top: 130px;
+        }
+  </style>
+
+  <style>
+      html, body {
+          background-color: #ffffff;
+      }
+      .ol-control button {
+        background-color: #f8f8f8 !important;
+        color: #000000 !important;
+        border-radius: 0px !important;
+      }
+      .ol-zoom, .geolocate, .gcd-gl-control .ol-control {
+        background-color: rgba(255,255,255,.4) !important;
+        padding: 3px !important;
+      }
+      .ol-scale-line {
+        background: none !important;
+      }
+      .ol-scale-line-inner {
+        border: 2px solid #f8f8f8 !important;
+        border-top: none !important;
+        background: rgba(255, 255, 255, 0.5) !important;
+        color: black !important;
+      }
+  </style>
+
+  <style>
+      .geolocate {
+        top: 65px;
+        left: .5em;
+      }
+      .ol-touch .geolocate {
+        top: 80px;
+      }
+  </style>
+  <style>
+      html, body, #map {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #over {
+        position: absolute;
+        bottom: 1%;
+        left:0%;
+        margin-left: 1%;
+      }
+      #over2 {
+        position: absolute;
+        bottom: 1%;
+        left:0%;
+        margin-left: 1%;
+        margin-bottom: 37px;
+      }
+      #legend {
+        position: absolute;
+        top: 1%;
+        left:40px;
+        margin-left: 1.5%;
+        margin-top: 3em;
+      }
+      #nubes_check {
+        position: absolute;
+        top: 1%;
+        left:40px;
+        margin-left: 1.5%
+      }
+      #credits {
+        position: absolute;
+        bottom: -3em;
+        right:50%;
+        left:50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.7em;
+      }
+
+      /* Dropdown Button */
+              .dropbtn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 0.5em;
+                font-size: 1em;
+                border: none;
+              }
+              /* The container <div> - needed to position the dropdown content */
+              .dropdown {
+                position: relative;
+                display: inline-block;
+              }
+              /* Dropdown Content (Hidden by Default) */
+              .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #aadaff;
+                min-width: 180px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+              }
+              /* Links inside the dropdown */
+              .dropdown-content a {
+                color: black;
+                padding: 0.5em 5px;
+                text-decoration: none;
+                display: block;
+              }
+              /* Change color of dropdown links on hover */
+              .dropdown-content a:hover {background-color: #ddd;}
+              /* Show the dropdown menu on hover */
+              .dropdown:hover .dropdown-content {display: block;}
+              /* Change the background color of the dropdown button when the dropdown content is shown */
+              .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  </style>
+  <title></title>
+</head>
+<body>
+  <div id="map">
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+  </div>
+  
+  <script src="resources/qgis2web_expressions.js"></script>
+  <script src="resources/polyfills.js"></script>
+  <script src="./resources/functions.js"></script>
+  <script src="./resources/ol.js"></script>
+  <script src="./resources/ol3-layerswitcher.js"></script>
+  <script src="layers/centralLine_3.js"></script><script src="layers/limiteNorte_4.js"></script><script src="layers/limiteSur_5.js"></script>
+  <script src="styles/centralLine_3_style.js"></script><script src="styles/limiteNorte_4_style.js"></script><script src="styles/limiteSur_5_style.js"></script>
+  <script src="./layers/layers.js" type="text/javascript"></script>
+  <script src="./resources/qgis2web.js"></script>
+  <script src="./resources/Autolinker.min.js"></script>
+
+  <!-- Donate -->
+  <div id="over">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="blank">
+      <input type="hidden" name="cmd" value="_donations" />
+      <input type="hidden" name="business" value="KTTB2NF66DMBC" />
+      <input type="hidden" name="item_name" value="Support my work!" />
+      <input type="hidden" name="currency_code" value="USD" />
+      <input type="image" src="images/paypalbutton.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+      <img alt="" border="0" src="https://www.paypal.com/en_CL/i/scr/pixel.gif" width="1" height="1" />
+    </form>
+  </div>
+  <div id="over2">
+    <form action="https://www.mercadopago.com/mlc/checkout/pay?pref_id=74123274-056ea4e0-2589-4b05-bd83-b2019786f4ae" method="post" target="blank">
+      <input type="image" src="images/mercadopago.gif" border="0" name="submit" title="Donar con MercadoPago" alt="Donate with MercadoPago" />
+      <img alt="" border="0" src="https://www.paypal.com/en_CL/i/scr/pixel.gif" width="1" height="1" />
+    </form>
+  </div>
+
+  <!-- Credits -->
+  <div id="credits">
+    <p style="text-align:center">
+      <a href="mailto:ivan_xd@live.cl" target="_top">©Ivan Gonzalez</a>  |
+      <a href="https://github.com/eclipse2019/eclipse2019.github.io/blob/master/README.md" target="_top"> Help </a>
+      <br> Map data ©2019 Google
+      <!-- <br> <a href="http://www.accuweather.com"><IMG height=10 src="images/aw.png"  align=baseline> </a> -->
+        <br> Terrain ©JAXA ALOS AW3D30
+        <br> Clouds by TWC's weather.com®
+      </p>
+  </div>
+
+  <!-- Legend -->
+  <div class="dropdown" id="legend">
+    <button class="dropbtn">Legend</button>
+    <div class="dropdown-content">
+      <a ><IMG height=10 src="" width=0 align=baseline> <b>Angular elevation of northwestern horizon</b> </a>
+      <a ><IMG height=10 src="images/pixLgreen.gif" width=10 align=baseline> <0.5° / C4 visible </a>
+      <a ><IMG height=10 src="images/pixGreen.gif" width=10 align=baseline> 0.5° - 2.5° </a>
+      <a ><IMG height=10 src="images/pixYellow.gif" width=10 align=baseline> 2.5° - 5.0° </a>
+      <a ><IMG height=10 src="images/pixOrange.gif" width=10 align=baseline> 5.0° - 7.5° </a>
+      <a ><IMG height=10 src="images/pixRed.gif" width=10 align=baseline> 7.5° - 12° </a>
+      <a ><IMG height=10 src="images/pixBlack.gif" width=10 align=baseline> >12° / Eclipse not visible</a>
+    </div>
+  </div>
+
+  <!-- Layer checkboxes -->
+  <div class="dropdown" id="nubes_check">
+    <button class="dropbtn"> Layers </button>
+    <div class="dropdown-content">
+      <a ><form> <input type="checkbox" onclick="toggleVisibility_clouds(this)" unchecked> Clouds </form></a>
+      <a ><form> <input type="checkbox" onclick="toggleVisibility_satellite(this)" unchecked> Live Satellite </form></a>
+    </div>
+  </div>
+
+
+</body>
+</html>
